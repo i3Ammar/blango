@@ -14,6 +14,7 @@ from pathlib import Path
 from os import environ
 from configurations import Configuration , values
 import dj_database_url
+import logging.config
 
 class Dev(Configuration):
     # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -129,11 +130,50 @@ class Dev(Configuration):
 
     STATIC_URL = '/static/'
 
-    # Default primary key field type
+    # default primary key field type
     # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
-    DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+    DEFAULT_AUTO_FIELD = 'django.db.models.bigautofield'
+    DJANGO_ADMINS = "admin,ammarhmad23@hotmail.com;"
+    LOGGING = {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "filters": {
+            "require_debug_false":{
+                "()": "django.utils.log.RequireDebugFalse",
+            },
+        },
+        "formatters": {
+            "verbose": {
+                "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+                "style": "{",
+            },
+        },
+        "handlers": {
+            # "file": {"class": "logging.FileHandler", "filename": "blango.log"},
+            "console": {
+                "class": "logging.StreamHandler",
+                "stream": "ext://sys.stdout",
+                "formatter": "verbose",
+            },
+            "mail_admins" : {
+                "level":"ERROR",
+                "class":"django.utils.log.AdminEmailHandler",
+                "filters": ["require_debug_false"],
+            },
+        },
+        "loggers":{
+            "django.request": {
+                "handlers":["mail_admins"],
+                "level":"ERROR",
+                "propagate": False,
+            },
+        },
+        "root": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+        },
+    }
 class Prod (Dev ):
     DEBUG = False
     SECRET_KEY = values.SecretValue()
