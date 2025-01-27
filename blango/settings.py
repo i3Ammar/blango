@@ -14,7 +14,6 @@ from pathlib import Path
 from os import environ
 from configurations import Configuration , values
 import dj_database_url
-import logging.config
 
 class Dev(Configuration):
     # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,8 +28,11 @@ class Dev(Configuration):
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
 
-    ALLOWED_HOSTS = []
-
+    ALLOWED_HOSTS =  values.ListValue (
+        default =  [],
+        environ_name = "ALLOWED_HOSTS",
+        separator = ",",
+    )
      # Application definition
 
     INSTALLED_APPS = [
@@ -110,14 +112,19 @@ class Dev(Configuration):
         },
     ]
 
+    PASSWORD_HASHERS = [
+        'django.contrib.auth.hashers.Argon2PasswordHasher',
+        'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+        'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+        'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    ]
 
     # Internationalization
     # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
     LANGUAGE_CODE = 'en-us'
 
-    TIME_ZONE = values.Value("UTC")
-
+    TIME_ZONE = values.Value("Asia/Amman")
     USE_I18N = True
 
     USE_L10N = True
@@ -132,7 +139,7 @@ class Dev(Configuration):
 
     # default primary key field type
     # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-
+    #logger test
     DEFAULT_AUTO_FIELD = 'django.db.models.bigautofield'
     DJANGO_ADMINS = "admin,ammarhmad23@hotmail.com;"
     LOGGING = {
@@ -174,6 +181,7 @@ class Dev(Configuration):
             "level": "DEBUG",
         },
     }
+
 class Prod (Dev ):
     DEBUG = False
     SECRET_KEY = values.SecretValue()
