@@ -26,13 +26,13 @@ class Dev(Configuration):
     SECRET_KEY = 'django-insecure-+sn%dpa!086+g+%44z9*^j^q-u4n!j(#wl)x9a%_1op@zz2+1-'
 
     # SECURITY WARNING: don't run with debug turned on in production!
-    DEBUG = True
-
-    ALLOWED_HOSTS =  values.ListValue (
-        default =  [],
-        environ_name = "ALLOWED_HOSTS",
-        separator = ",",
-    )
+    DEBUG =  True
+    ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+    # ALLOWED_HOSTS =  values.ListValue (
+    #     default =  [],
+    #     environ_name = "ALLOWED_HOSTS",
+    #     separator = ",",
+    # )
      # Application definition
 
     INSTALLED_APPS = [
@@ -45,12 +45,13 @@ class Dev(Configuration):
         'blog',
         'crispy_forms',
         'crispy_bootstrap5',
-
+        'debug_toolbar',
     ]
     CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
     CRISPY_TEMPLATE_PACK = "bootstrap5"
 
     MIDDLEWARE = [
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
         'django.middleware.security.SecurityMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.common.CommonMiddleware',
@@ -60,6 +61,9 @@ class Dev(Configuration):
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
     ]
 
+    INTERNAL_IPS = [
+        "127.0.0.1",
+    ]
     ROOT_URLCONF = 'blango.urls'
 
     TEMPLATES = [
@@ -135,12 +139,13 @@ class Dev(Configuration):
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-    STATIC_URL = '/static/'
+    STATIC_URL = 'static/'
 
     # default primary key field type
     # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
     #logger test
-    DEFAULT_AUTO_FIELD = 'django.db.models.bigautofield'
+    DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
     DJANGO_ADMINS = "admin,ammarhmad23@hotmail.com;"
     LOGGING = {
         "version": 1,
@@ -183,6 +188,10 @@ class Dev(Configuration):
     }
 
 class Prod (Dev ):
-    DEBUG = False
     SECRET_KEY = values.SecretValue()
-    ALLOWED_HOSTS = values.ListValue(["localhost","127.0.0.1"])
+    ALLOWED_HOSTS =  values.ListValue (
+        default =  ["localhost", "127.0.0.1","::1"],
+        environ_name = "ALLOWED_HOSTS",
+        separator = ",",
+    )
+    DEBUG = values.BooleanValue(True)
