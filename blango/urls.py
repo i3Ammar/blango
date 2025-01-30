@@ -18,13 +18,28 @@ import debug_toolbar
 from debug_toolbar.toolbar import debug_toolbar_urls
 from django.conf import settings
 from django.contrib import admin
+from django.contrib.messages import success
 from django.urls import path,include
 import blog.views
+import blango_auth.views
+from blango_auth.forms import BlangoRegistrationForm
+from django_registration.backends.one_step.views import RegistrationView
+from django.urls import reverse_lazy
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("",blog.views.index),
-    path("post/<slug>/",blog.views.post_detail , name = "blog-post-detail" )
+    path("",blog.views.index , name = "home"),
+    path("post/<slug>/",blog.views.post_detail , name = "blog-post-detail" ),
+    path("accounts/", include("django_registration.backends.one_step.urls")),
+    path("accounts/",include("django.contrib.auth.urls")),
+    path("accounts/profile/",blango_auth.views.profile , name = "profile"),
+    path("accounts/register/",RegistrationView.as_view(form_class=BlangoRegistrationForm ,success_url='/profile/'),name="django_registration_register"),
+
 ]
+
+
+
+
 if settings.DEBUG :
     urlpatterns += [
         path("__debug__/", include(debug_toolbar.urls)),

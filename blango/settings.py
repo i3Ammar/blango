@@ -35,9 +35,13 @@ class Dev(Configuration):
     # )
      # Application definition
     AUTH_USER_MODEL = "blango_auth.User"
+    LOGIN_REDIRECT_URL = "home"
+    LOGOUT_REDIRECT_URL = "home"
+    REGISTRATION_OPEN = True
     INSTALLED_APPS = [
         'django.contrib.admin',
         'django.contrib.auth',
+        'django_registration',
         'django.contrib.contenttypes',
         'django.contrib.sessions',
         'django.contrib.messages',
