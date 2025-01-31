@@ -38,6 +38,8 @@ class Dev(Configuration):
     LOGIN_REDIRECT_URL = "home"
     LOGOUT_REDIRECT_URL = "home"
     REGISTRATION_OPEN = True
+    ACCOUNT_ACTIVATION_DAYS = 7
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
     INSTALLED_APPS = [
         'django.contrib.admin',
         'django.contrib.auth',
