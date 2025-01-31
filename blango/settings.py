@@ -40,14 +40,26 @@ class Dev(Configuration):
     REGISTRATION_OPEN = True
     ACCOUNT_ACTIVATION_DAYS = 7
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+    SITE_ID = 1
+    ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+    ACCOUNT_EMAIL_REQUIRED = True
+    ACCOUNT_USERNAME_REQUIRED = False
+    ACCOUNT_AUTHENTICATION_METHOD = "email"
+    ACCOUNT_EMAIL_VERIFICATION = "none"
     INSTALLED_APPS = [
+
         'django.contrib.admin',
+        'allauth',
+        'allauth.account',
+        'allauth.socialaccount',
+        'allauth.socialaccount.providers.google',
         'django.contrib.auth',
-        'django_registration',
         'django.contrib.contenttypes',
         'django.contrib.sessions',
         'django.contrib.messages',
         'django.contrib.staticfiles',
+        'django.contrib.sites',
+        'django_registration',
         'blango_auth',
         'blog',
         'crispy_forms',
@@ -66,6 +78,7 @@ class Dev(Configuration):
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
+        'allauth.account.middleware.AccountMiddleware',
     ]
 
     INTERNAL_IPS = [
