@@ -27,12 +27,10 @@ class Dev(Configuration):
 
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG =  True
-    ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
-    # ALLOWED_HOSTS =  values.ListValue (
-    #     default =  [],
-    #     environ_name = "ALLOWED_HOSTS",
-    #     separator = ",",
-    # )
+    ALLOWED_HOSTS =  values.ListValue (
+        default =  ["localhost", "127.0.0.1"],
+        environ_name = "ALLOWED_HOSTS",
+    )
      # Application definition
     AUTH_USER_MODEL = "blango_auth.User"
     LOGIN_REDIRECT_URL = "home"
