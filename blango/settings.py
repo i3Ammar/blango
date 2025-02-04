@@ -45,7 +45,6 @@ class Dev(Configuration):
     ACCOUNT_AUTHENTICATION_METHOD = "email"
     ACCOUNT_EMAIL_VERIFICATION = "none"
     INSTALLED_APPS = [
-
         'django.contrib.admin',
         'allauth',
         'allauth.account',
@@ -58,6 +57,7 @@ class Dev(Configuration):
         'django.contrib.staticfiles',
         'django.contrib.sites',
         'django_registration',
+        'rest_framework',
         'blango_auth',
         'blog',
         'crispy_forms',
