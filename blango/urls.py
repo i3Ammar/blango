@@ -14,17 +14,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-import debug_toolbar
-from debug_toolbar.toolbar import debug_toolbar_urls
+
+from django_registration.backends.one_step.views import RegistrationView
 from django.conf import settings
 from django.contrib import admin
-from django.contrib.messages import success
 from django.urls import path,include
+import debug_toolbar
+
+from blango_auth.forms import BlangoRegistrationForm
 import blog.views
 import blango_auth.views
-from blango_auth.forms import BlangoRegistrationForm
-from django_registration.backends.one_step.views import RegistrationView
-from django.urls import reverse_lazy
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,7 +34,7 @@ urlpatterns = [
     path("accounts/profile/",blango_auth.views.profile , name = "profile"),
     path("accounts/register/",RegistrationView.as_view(form_class=BlangoRegistrationForm ),name="django_registration_register"),
     path("accounts/", include("django_registration.backends.activation.urls")),
-    path("api/v1/",include("blog.api_urls")),
+    path("api/v1/",include("blog.api.urls")),
 
 ]
 
