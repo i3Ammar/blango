@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import logging
 from pathlib import Path
 from os import environ
 from configurations import Configuration , values
@@ -66,6 +66,7 @@ class Dev(Configuration):
         'debug_toolbar',
     ]
     REST_FRAMEWORK = {
+        "DEFAULT_PERMISSION_CLASS" : ["rest_framework.permissions.IsAuthenticatedOrReadOnly"],
         "DEFAULT_AUTHENTICATION_CLASSES": [
             "rest_framework.authentication.BasicAuthentication",
             "rest_framework.authentication.SessionAuthentication",
@@ -114,17 +115,9 @@ class Dev(Configuration):
 
     # Database
     # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-
     DATABASES = {
-        "default": dj_database_url.config(default=f"sqlite:///{BASE_DIR}/db.sqlite3"),
-        "alternative": dj_database_url.config(
-            "ALTERNATIVE_DATABASE_URL",
-            default=f"sqlite:///{BASE_DIR}/alternative_db.sqlite3",
-        ),
+        "default": dj_database_url.config(default=f"sqlite:////{BASE_DIR}/db.sqlite3"),
     }
-
-
     # Password validation
     # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
