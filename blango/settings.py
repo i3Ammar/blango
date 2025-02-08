@@ -9,9 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-import logging
 from pathlib import Path
-from os import environ
 from configurations import Configuration , values
 import dj_database_url
 
@@ -64,6 +62,7 @@ class Dev(Configuration):
         'crispy_forms',
         'crispy_bootstrap5',
         'debug_toolbar',
+        'django_browser_reload',
     ]
     REST_FRAMEWORK = {
         "DEFAULT_PERMISSION_CLASS" : ["rest_framework.permissions.IsAuthenticatedOrReadOnly"],
@@ -87,6 +86,7 @@ class Dev(Configuration):
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
         'allauth.account.middleware.AccountMiddleware',
+        'django_browser_reload.middleware.BrowserReloadMiddleware',
     ]
 
     INTERNAL_IPS = [

@@ -25,6 +25,7 @@ from blango_auth.forms import BlangoRegistrationForm
 import blog.views
 import blango_auth.views
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("",blog.views.index , name = "home"),
@@ -35,6 +36,7 @@ urlpatterns = [
     path("accounts/register/",RegistrationView.as_view(form_class=BlangoRegistrationForm ),name="django_registration_register"),
     path("accounts/", include("django_registration.backends.activation.urls")),
     path("api/v1/",include("blog.api.urls")),
+    path('__reload__/',include("django_browser_reload.urls")),
 
 ]
 
