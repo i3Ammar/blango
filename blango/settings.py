@@ -45,7 +45,7 @@ class Dev(Configuration):
     ACCOUNT_AUTHENTICATION_METHOD = "email"
     ACCOUNT_EMAIL_VERIFICATION = "none"
     INSTALLED_APPS = [
-    # Application definition
+        # Application definition
         "django.contrib.admin",
         "allauth",
         "allauth.account",
@@ -63,10 +63,17 @@ class Dev(Configuration):
         "crispy_forms",
         "crispy_bootstrap5",
         "debug_toolbar",
-        # "django_browser_reload",
+        "django_browser_reload",
+        "drf_yasg",
         "blango_auth",
         "blog",
     ]
+    SWAGGER_SETTINGS = {
+        "SECURITY_DEFINITIONS": {
+            "Token": {"type": "apiKey", "name": "Authorization", "in": "header"},
+            "Basic": {"type": "basic"},
+        }
+    }
     REST_FRAMEWORK = {
         "DEFAULT_AUTHENTICATION_CLASSES": [
             "rest_framework.authentication.TokenAuthentication",
