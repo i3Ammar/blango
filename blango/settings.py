@@ -9,9 +9,11 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+
 from pathlib import Path
-from configurations import Configuration , values
+from configurations import Configuration, values
 import dj_database_url
+
 
 class Dev(Configuration):
     # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,15 +23,15 @@ class Dev(Configuration):
     # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
     # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = 'django-insecure-+sn%dpa!086+g+%44z9*^j^q-u4n!j(#wl)x9a%_1op@zz2+1-'
+    SECRET_KEY = "django-insecure-+sn%dpa!086+g+%44z9*^j^q-u4n!j(#wl)x9a%_1op@zz2+1-"
 
     # SECURITY WARNING: don't run with debug turned on in production!
-    DEBUG =  True
-    ALLOWED_HOSTS =  values.ListValue (
-        default =  ["localhost", "127.0.0.1"],
-        environ_name = "ALLOWED_HOSTS",
+    DEBUG = True
+    ALLOWED_HOSTS = values.ListValue(
+        default=["localhost", "127.0.0.1"],
+        environ_name="ALLOWED_HOSTS",
     )
-     # Application definition
+
     AUTH_USER_MODEL = "blango_auth.User"
     LOGIN_REDIRECT_URL = "home"
     LOGOUT_REDIRECT_URL = "home"
@@ -43,75 +45,74 @@ class Dev(Configuration):
     ACCOUNT_AUTHENTICATION_METHOD = "email"
     ACCOUNT_EMAIL_VERIFICATION = "none"
     INSTALLED_APPS = [
-        'django.contrib.admin',
-        'allauth',
-        'allauth.account',
-        'allauth.socialaccount',
-        'allauth.socialaccount.providers.google',
-        'django.contrib.auth',
-        'django.contrib.contenttypes',
-        'django.contrib.sessions',
-        'django.contrib.messages',
-        'django.contrib.staticfiles',
-        'django.contrib.sites',
-        'django_registration',
-        'rest_framework',
-        'rest_framework.authtoken',
-        'blango_auth',
-        'blog',
-        'crispy_forms',
-        'crispy_bootstrap5',
-        'debug_toolbar',
-        'django_browser_reload',
+    # Application definition
+        "django.contrib.admin",
+        "allauth",
+        "allauth.account",
+        "allauth.socialaccount",
+        "allauth.socialaccount.providers.google",
+        "django.contrib.auth",
+        "django.contrib.contenttypes",
+        "django.contrib.sessions",
+        "django.contrib.messages",
+        "django.contrib.staticfiles",
+        "django.contrib.sites",
+        "django_registration",
+        "rest_framework",
+        "rest_framework.authtoken",
+        "crispy_forms",
+        "crispy_bootstrap5",
+        "debug_toolbar",
+        # "django_browser_reload",
+        "blango_auth",
+        "blog",
     ]
     REST_FRAMEWORK = {
-        "DEFAULT_PERMISSION_CLASS" : ["rest_framework.permissions.IsAuthenticatedOrReadOnly"],
         "DEFAULT_AUTHENTICATION_CLASSES": [
+            "rest_framework.authentication.TokenAuthentication",
             "rest_framework.authentication.BasicAuthentication",
             "rest_framework.authentication.SessionAuthentication",
-            "rest_framework.authentication.TokenAuthentication",
-        ]
+        ],
     }
 
     CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
     CRISPY_TEMPLATE_PACK = "bootstrap5"
 
     MIDDLEWARE = [
-        'debug_toolbar.middleware.DebugToolbarMiddleware',
-        'django.middleware.security.SecurityMiddleware',
-        'django.contrib.sessions.middleware.SessionMiddleware',
-        'django.middleware.common.CommonMiddleware',
-        'django.middleware.csrf.CsrfViewMiddleware',
-        'django.contrib.auth.middleware.AuthenticationMiddleware',
-        'django.contrib.messages.middleware.MessageMiddleware',
-        'django.middleware.clickjacking.XFrameOptionsMiddleware',
-        'allauth.account.middleware.AccountMiddleware',
-        'django_browser_reload.middleware.BrowserReloadMiddleware',
+        "debug_toolbar.middleware.DebugToolbarMiddleware",
+        "django.middleware.common.CommonMiddleware",
+        "django.middleware.security.SecurityMiddleware",
+        "django.middleware.clickjacking.XFrameOptionsMiddleware",
+        "django.middleware.csrf.CsrfViewMiddleware",
+        "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.contrib.auth.middleware.AuthenticationMiddleware",
+        "django.contrib.messages.middleware.MessageMiddleware",
+        "allauth.account.middleware.AccountMiddleware",
+        "django_browser_reload.middleware.BrowserReloadMiddleware",
     ]
 
     INTERNAL_IPS = [
         "127.0.0.1",
     ]
-    ROOT_URLCONF = 'blango.urls'
+    ROOT_URLCONF = "blango.urls"
 
     TEMPLATES = [
         {
-            'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            'DIRS': [BASE_DIR / 'templates'],
-            'APP_DIRS': True,
-            'OPTIONS': {
-                'context_processors': [
-                    'django.template.context_processors.debug',
-                    'django.template.context_processors.request',
-                    'django.contrib.auth.context_processors.auth',
-                    'django.contrib.messages.context_processors.messages',
+            "BACKEND": "django.template.backends.django.DjangoTemplates",
+            "DIRS": [BASE_DIR / "templates"],
+            "APP_DIRS": True,
+            "OPTIONS": {
+                "context_processors": [
+                    "django.template.context_processors.debug",
+                    "django.template.context_processors.request",
+                    "django.contrib.auth.context_processors.auth",
+                    "django.contrib.messages.context_processors.messages",
                 ],
             },
         },
     ]
 
-    WSGI_APPLICATION = 'blango.wsgi.application'
-
+    WSGI_APPLICATION = "blango.wsgi.application"
 
     # Database
     # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -123,30 +124,30 @@ class Dev(Configuration):
 
     AUTH_PASSWORD_VALIDATORS = [
         {
-            'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+            "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
         },
         {
-            'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+            "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
         },
         {
-            'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+            "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
         },
         {
-            'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+            "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
         },
     ]
 
     PASSWORD_HASHERS = [
-        'django.contrib.auth.hashers.Argon2PasswordHasher',
-        'django.contrib.auth.hashers.PBKDF2PasswordHasher',
-        'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
-        'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+        "django.contrib.auth.hashers.Argon2PasswordHasher",
+        "django.contrib.auth.hashers.PBKDF2PasswordHasher",
+        "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
+        "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
     ]
 
     # Internationalization
     # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-    LANGUAGE_CODE = 'en-us'
+    LANGUAGE_CODE = "en-us"
 
     TIME_ZONE = values.Value("Asia/Amman")
     USE_I18N = True
@@ -155,23 +156,22 @@ class Dev(Configuration):
 
     USE_TZ = True
 
-
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-    STATIC_URL = 'static/'
+    STATIC_URL = "static/"
 
     # default primary key field type
     # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-    #logger test
-    DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+    # logger test
+    DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
     DJANGO_ADMINS = "admin,ammarhmad23@hotmail.com;"
     LOGGING = {
         "version": 1,
         "disable_existing_loggers": False,
         "filters": {
-            "require_debug_false":{
+            "require_debug_false": {
                 "()": "django.utils.log.RequireDebugFalse",
             },
         },
@@ -188,16 +188,16 @@ class Dev(Configuration):
                 "stream": "ext://sys.stdout",
                 "formatter": "verbose",
             },
-            "mail_admins" : {
-                "level":"ERROR",
-                "class":"django.utils.log.AdminEmailHandler",
+            "mail_admins": {
+                "level": "ERROR",
+                "class": "django.utils.log.AdminEmailHandler",
                 "filters": ["require_debug_false"],
             },
         },
-        "loggers":{
+        "loggers": {
             "django.request": {
-                "handlers":["mail_admins"],
-                "level":"ERROR",
+                "handlers": ["mail_admins"],
+                "level": "ERROR",
                 "propagate": False,
             },
         },
@@ -207,11 +207,12 @@ class Dev(Configuration):
         },
     }
 
-class Prod (Dev ):
+
+class Prod(Dev):
     SECRET_KEY = values.SecretValue()
-    ALLOWED_HOSTS =  values.ListValue (
-        default =  ["localhost", "127.0.0.1","::1"],
-        environ_name = "ALLOWED_HOSTS",
-        separator = ",",
+    ALLOWED_HOSTS = values.ListValue(
+        default=["localhost", "127.0.0.1", "::1"],
+        environ_name="ALLOWED_HOSTS",
+        separator=",",
     )
     DEBUG = values.BooleanValue(True)

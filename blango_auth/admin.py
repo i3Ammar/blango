@@ -2,11 +2,13 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from blango_auth.models import User
 from django.utils.translation import gettext_lazy as _
+
+
 # Register your models here.
 class BlangoUserAdmin(UserAdmin):
     fieldsets = (
         (None, {"fields": ("email", "password")}),
-        (_("Personal info"), {"fields": ("first_name", "last_name" )}),
+        (_("Personal info"), {"fields": ("first_name", "last_name")}),
         (
             _("Permissions"),
             {
@@ -30,7 +32,7 @@ class BlangoUserAdmin(UserAdmin):
             },
         ),
     )
-    list_display = ( "email", "first_name", "last_name", "is_staff")
+    list_display = ("email", "first_name", "last_name", "is_staff")
     search_fields = ("email", "first_name", "last_name", "email")
     ordering = ("email",)
 

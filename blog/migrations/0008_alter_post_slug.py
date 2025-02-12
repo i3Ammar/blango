@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('blog', '0007_authorprofile'),
+        ("blog", "0007_authorprofile"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='post',
-            name='slug',
+            model_name="post",
+            name="slug",
             field=models.SlugField(unique=True),
         ),
     ]

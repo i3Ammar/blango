@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('blog', '0004_comment_created_at_comment_modified_at'),
+        ("blog", "0004_comment_created_at_comment_modified_at"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='post',
-            name='published_at',
+            model_name="post",
+            name="published_at",
             field=models.DateTimeField(blank=True, db_index=True, null=True),
         ),
     ]

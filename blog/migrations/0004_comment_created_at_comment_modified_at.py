@@ -5,21 +5,22 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('blog', '0003_remove_comment_post'),
+        ("blog", "0003_remove_comment_post"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='comment',
-            name='created_at',
-            field=models.DateTimeField(auto_now_add=True, default=django.utils.timezone.now),
+            model_name="comment",
+            name="created_at",
+            field=models.DateTimeField(
+                auto_now_add=True, default=django.utils.timezone.now
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='comment',
-            name='modified_at',
+            model_name="comment",
+            name="modified_at",
             field=models.DateTimeField(auto_now=True),
         ),
     ]
