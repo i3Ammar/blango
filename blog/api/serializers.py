@@ -17,6 +17,10 @@ class TagField(serializers.SlugRelatedField):
         except (TypeError, ValueError):
             self.fail(f"Tag value {data} is invalid")
 
+class TagSerializer(serializers.ModelSerializer):
+    class Meta :
+        model = Tag
+        fields =  "__all__"
 
 class CommentSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False)
@@ -44,7 +48,7 @@ class PostSerializer(serializers.ModelSerializer):
 
 class PostDetailSerializer(PostSerializer):
     comments = CommentSerializer(many=True)
-
+    # dont forget to implement a new CREATE comment
     def update(self, instance, validated_data):
         comments = validated_data.pop("comments")
 
