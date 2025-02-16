@@ -76,11 +76,24 @@ class Dev(Configuration):
         }
     }
     REST_FRAMEWORK = {
+
         "DEFAULT_AUTHENTICATION_CLASSES": [
             "rest_framework.authentication.TokenAuthentication",
             "rest_framework.authentication.BasicAuthentication",
             "rest_framework.authentication.SessionAuthentication",
         ],
+        "DEFAULT_THROTTLE_CLASSES": [
+            "blog.api.throttling.AnonSustainedThrottle",
+            "blog.api.throttling.AnonBurstThrottle",
+            "blog.api.throttling.UserSustainedThrottle",
+            "blog.api.throttling.UserBurstThrottle",
+        ],
+        "DEFAULT_THROTTLE_RATES": {
+            "anon_sustained": "500/day",
+            "anon_burst": "10/minute",
+            "user_sustained": "5000/day",
+            "user_burst": "100/minute",
+        },
     }
 
     CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
