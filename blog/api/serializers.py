@@ -49,6 +49,12 @@ class PostSerializer(serializers.ModelSerializer):
 class PostDetailSerializer(PostSerializer):
     comments = CommentSerializer(many=True)
     # dont forget to implement a new CREATE comment
+    # def create(self, validated_data):
+    #     address_dict = validated_data.pop("address")
+    #     address = Address.objects.get_or_create(**address_dict)[0]
+    #     validated_data["address"] = address
+    #     return super(CustomerSerializer, self).create(validated_data)
+
     def update(self, instance, validated_data):
         comments = validated_data.pop("comments")
 

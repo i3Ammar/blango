@@ -11,8 +11,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-from configurations import Configuration, values
+
 import dj_database_url
+from configurations import Configuration, values
 
 
 class Dev(Configuration):
@@ -28,8 +29,8 @@ class Dev(Configuration):
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
     ALLOWED_HOSTS = values.ListValue(
-        default=["localhost", "127.0.0.1"],
-        environ_name="ALLOWED_HOSTS",
+        default = ["localhost", "127.0.0.1"],
+        environ_name = "ALLOWED_HOSTS",
     )
 
     AUTH_USER_MODEL = "blango_auth.User"
@@ -124,7 +125,7 @@ class Dev(Configuration):
     # Database
     # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
     DATABASES = {
-        "default": dj_database_url.config(default=f"sqlite:////{BASE_DIR}/db.sqlite3"),
+        "default": dj_database_url.config(default = f"sqlite:////{BASE_DIR}/db.sqlite3"),
     }
     # Password validation
     # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -218,8 +219,8 @@ class Dev(Configuration):
 class Prod(Dev):
     SECRET_KEY = values.SecretValue()
     ALLOWED_HOSTS = values.ListValue(
-        default=["localhost", "127.0.0.1", "::1"],
-        environ_name="ALLOWED_HOSTS",
-        separator=",",
+        default = ["localhost", "127.0.0.1", "::1"],
+        environ_name = "ALLOWED_HOSTS",
+        separator = ",",
     )
     DEBUG = values.BooleanValue(True)

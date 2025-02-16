@@ -28,7 +28,7 @@ schema_view = get_schema_view(
 
 urlpatterns += [
     path("auth/", include("rest_framework.urls")),
-    path('',include(router.urls))
+    path('',include(router.urls)),
 
     # path("token-auth/", views.obtain_auth_token),
     # re_path(
