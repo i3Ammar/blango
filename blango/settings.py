@@ -29,8 +29,8 @@ class Dev(Configuration):
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
     ALLOWED_HOSTS = values.ListValue(
-        default = ["localhost", "127.0.0.1"],
-        environ_name = "ALLOWED_HOSTS",
+        default=["localhost", "127.0.0.1"],
+        environ_name="ALLOWED_HOSTS",
     )
 
     AUTH_USER_MODEL = "blango_auth.User"
@@ -76,7 +76,6 @@ class Dev(Configuration):
         }
     }
     REST_FRAMEWORK = {
-
         "DEFAULT_AUTHENTICATION_CLASSES": [
             "rest_framework.authentication.TokenAuthentication",
             "rest_framework.authentication.BasicAuthentication",
@@ -138,25 +137,25 @@ class Dev(Configuration):
     # Database
     # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
     DATABASES = {
-        "default": dj_database_url.config(default = f"sqlite:////{BASE_DIR}/db.sqlite3"),
+        "default": dj_database_url.config(default=f"sqlite:////{BASE_DIR}/db.sqlite3"),
     }
     # Password validation
     # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
-    AUTH_PASSWORD_VALIDATORS = [
-        {
-            "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-        },
-        {
-            "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-        },
-        {
-            "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-        },
-        {
-            "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-        },
-    ]
+    # AUTH_PASSWORD_VALIDATORS = [
+    #     {
+    #         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    #     },
+    #     {
+    #         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    #     },
+    #     {
+    #         "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    #     },
+    #     {
+    #         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    #     },
+    # ]
 
     PASSWORD_HASHERS = [
         "django.contrib.auth.hashers.Argon2PasswordHasher",
@@ -232,8 +231,8 @@ class Dev(Configuration):
 class Prod(Dev):
     SECRET_KEY = values.SecretValue()
     ALLOWED_HOSTS = values.ListValue(
-        default = ["localhost", "127.0.0.1", "::1"],
-        environ_name = "ALLOWED_HOSTS",
-        separator = ",",
+        default=["localhost", "127.0.0.1", "::1"],
+        environ_name="ALLOWED_HOSTS",
+        separator=",",
     )
     DEBUG = values.BooleanValue(True)

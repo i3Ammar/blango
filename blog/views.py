@@ -3,10 +3,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 import logging
 
-logger = logging.getLogger(__name__)
-
 from blog.forms import CommentForm
 from blog.models import Post
+
+logger = logging.getLogger(__name__)
 
 
 # Create your views here.

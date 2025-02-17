@@ -6,12 +6,13 @@ from django.test import TestCase
 from django.utils import timezone
 from pytz import timezone as tz
 from rest_framework.authtoken.models import Token
-from rest_framework.test import APIClient, APITestCase
-from django.conf import settings
+from rest_framework.test import APIClient
 
 from blog.models import Post
 
 amman_tz = tz("Asia/Amman")
+
+
 class PostApiTestCase(TestCase):
     def setUp(self):
         self.u1 = get_user_model().objects.create_user(
@@ -48,6 +49,7 @@ class PostApiTestCase(TestCase):
         self.client = APIClient()
         token = Token.objects.create(user=self.u1)
         self.client.credentials(HTTP_AUTHORIZATION="Token " + token.key)
+
     def test_post_list(self):
         resp = self.client.get("/api/v1/posts/")
         data = resp.json()
@@ -64,11 +66,12 @@ class PostApiTestCase(TestCase):
             )
             self.assertEqual(
                 post_obj.published_at,
-                datetime.fromisoformat(post_dict["published_at"]).astimezone(amman_tz)
+                datetime.fromisoformat(post_dict["published_at"]).astimezone(amman_tz),
                 # datetime.strptime(
                 #     post_dict["published_at"], "%Y-%m-%dT%H:%M:%S.%f+Z"
                 # ).replace(tzinfo = amman_tz),
             )
+
     def test_unauthenticated_post_create(self):
         # unset credentials so we are an anonymous user
         self.client.credentials()
