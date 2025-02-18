@@ -1,5 +1,6 @@
 from datetime import timedelta
 
+import  django_filters.rest_framework
 from django.db.models import Q
 from django.http import Http404
 from django.utils import timezone
@@ -19,6 +20,7 @@ from blog.api.serializers import (
     PostDetailSerializer,
     TagSerializer,
 )
+from blog.api.filters import PostFilterSet
 from blog.models import Post, Tag
 
 
@@ -29,6 +31,12 @@ class TagViewSet(viewsets.ModelViewSet):
     @action(methods=["get"], detail=True, name="Posts with the Tag")
     def posts(self, request, pk=None):
         tag = self.get_object()
+        page = self.paginate_queryset(tag.posts)
+        if page is not None:
+            post_serializer = PostSerializer(
+                page, many=True, context={"request": request}
+            )
+            return self.get_paginated_response(post_serializer.data)
         post_serializer = PostSerializer(
             tag.posts, many=True, context={"request": request}
         )
@@ -46,11 +54,14 @@ class TagViewSet(viewsets.ModelViewSet):
 class PostViewSet(viewsets.ModelViewSet):
     permission_classes = [AuthorModifyOrReadOnly | IsAdminUserForObject]
     queryset = Post.objects.all()
+    filterset_class = PostFilterSet
+    ordering_fields = ["published_at", "author", "title", "slug"]
 
     def get_queryset(self):
         if self.request.user.is_anonymous:
             # published only
             queryset = self.queryset.filter(published_at__lte=timezone.now())
+
         elif not self.request.user.is_staff:
             # allow all
             queryset = self.queryset
@@ -96,8 +107,15 @@ class PostViewSet(viewsets.ModelViewSet):
     @action(methods=["get"], detail=False, name="Posts by the logged in user")
     def mine(self, request):
         if request.user.is_anonymous:
-            raise PermissionDenied("You must be logged in to see which posts are yours")
+            raise PermissionDenied("You must be logged in to see which Posts are yours")
         posts = self.get_queryset().filter(author=request.user)
+
+        page = self.paginate_queryset(posts)
+
+        if page is not None:
+            serializer = PostSerializer(page, many=True, context={"request": request})
+            return self.get_paginated_response(serializer.data)
+
         serializer = PostSerializer(posts, many=True, context={"request": request})
         return Response(serializer.data)
 
