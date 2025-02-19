@@ -65,6 +65,7 @@ class Dev(Configuration):
         "rest_framework.authtoken",
         "crispy_forms",
         "crispy_bootstrap5",
+        "versatileimagefield",
         "debug_toolbar",
         "django_browser_reload",
         "drf_yasg",
@@ -146,6 +147,8 @@ class Dev(Configuration):
             },
         },
     ]
+    MEDIA_ROOT = BASE_DIR / "media"
+    MEDIA_URL = "/media/"
 
     WSGI_APPLICATION = "blango.wsgi.application"
 
