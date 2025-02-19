@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 import dj_database_url
 from configurations import Configuration, values
@@ -81,6 +82,7 @@ class Dev(Configuration):
             "rest_framework.authentication.TokenAuthentication",
             "rest_framework.authentication.BasicAuthentication",
             "rest_framework.authentication.SessionAuthentication",
+            "rest_framework_simplejwt.authentication.JWTAuthentication",
         ],
         "DEFAULT_THROTTLE_CLASSES": [
             "blog.api.throttling.AnonSustainedThrottle",
@@ -102,6 +104,11 @@ class Dev(Configuration):
         "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
         "PAGE_SIZE": 100,
     }
+    SIMPLE_JWT ={
+        "ACCESS_TOKEN_LIFETIME": timedelta(days = 1),
+        "REFRESH_TOKEN_LIFETIME": timedelta(days = 7),
+    }
+
 
     CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
     CRISPY_TEMPLATE_PACK = "bootstrap5"
